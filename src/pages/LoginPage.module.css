@@ -1,0 +1,159 @@
+.background,
+.signupBtnChild {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.background {
+  background-color: #161a30;
+  width: 1920px;
+  height: 1080px;
+}
+
+.signupBtnChild {
+  border-radius: var(--br-3xs);
+  background-color: var(--color-darkslategray);
+  width: 660px;
+  height: 70px;
+  color: aliceblue;
+}
+
+.regisNewAccount {
+  position: absolute;
+  top: 9px;
+  left: 143px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 373px;
+  height: 52px;
+}
+
+.signupBtn {
+  position: absolute;
+  top: 873px;
+  left: 630px;
+  width: 660px;
+  height: 70px;
+}
+
+.login,
+.or {
+  position: absolute;
+  top: 814px;
+  left: 946px;
+}
+
+.login {
+  top: 9px;
+  left: 187px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 286.58px;
+  height: 52px;
+}
+
+.loginBtn,
+.passwordChild {
+  position: absolute;
+  top: 716px;
+  left: 630px;
+  width: 660px;
+  height: 70px;
+}
+
+.password1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: var(--br-41xl);
+  background-color: var(--color-white);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  border: 2px solid var(--color-dimgray-100);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  width: 660px;
+  height: 70px;
+  padding: 0 24px;
+}
+
+.password,
+.username {
+  position: absolute;
+  top: 580px;
+  left: 630px;
+  width: 660px;
+  height: 70px;
+  text-align: left;
+  color: var(--color-dimgray-200);
+}
+
+.username {
+  top: 483px;
+}
+
+.chatWith {
+  margin: 0;
+}
+
+.chatWithAiContainer1 {
+  width: 100%;
+}
+
+.chatWithAiContainer {
+  position: absolute;
+  top: 217px;
+  left: 645px;
+  font-size: 64px;
+  display: flex;
+  align-items: center;
+  width: 629px;
+  height: 179px;
+}
+
+.logoChild {
+  top: 0;
+  left: 0;
+  border-radius: 50px;
+  width: 660px;
+  height: 90px;
+  object-fit: cover;
+}
+
+.dhsChat,
+.logo,
+.logoChild {
+  position: absolute;
+}
+
+.dhsChat {
+  top: 23.26px;
+  left: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 479.82px;
+  height: 42.47px;
+}
+
+.logo {
+  top: 41px;
+  left: 630px;
+  width: 660px;
+  height: 90px;
+  font-size: 32px;
+  color: #000;
+}
+
+.loginPage {
+  position: relative;
+  width: 100%;
+  height: 1080px;
+  text-align: center;
+  font-size: var(--font-size-5xl);
+  color: var(--color-white);
+  font-family: var(--font-jetbrains-mono);
+}
