@@ -1,52 +1,20 @@
 import { useEffect } from "react";
+import axios from "axios";
 import {
   Routes,
   Route,
-  useNavigationType,
-  useLocation,
 } from "react-router-dom";
-import LoginPage from "./pages/LoginPage";
+import SignUpIn from "./pages/layout/SignUpIn";
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
-  const action = useNavigationType();
-  const location = useLocation();
-  const pathname = location.pathname;
-
-  useEffect(() => {
-    if (action !== "POP") {
-      window.scrollTo(0, 0);
-    }
-  }, [action, pathname]);
-
-  useEffect(() => {
-    let title = "";
-    let metaDescription = "";
-
-    switch (pathname) {
-      case "/":
-        title = "";
-        metaDescription = "";
-        break;
-    }
-
-    if (title) {
-      document.title = title;
-    }
-
-    if (metaDescription) {
-      const metaDescriptionTag = document.querySelector(
-        'head > meta[name="description"]'
-      );
-      if (metaDescriptionTag) {
-        metaDescriptionTag.content = metaDescription;
-      }
-    }
-  }, [pathname]);
-
+  axios.defaults.baseURL = 'https://api.ducth.tech/';
   return (
-    <Routes>
-      <Route path="/" element={<LoginPage />} />
-    </Routes>
+    <div>
+      <Routes>
+        <Route path="/login" element={<SignUpIn />} />
+      </Routes>
+    </div>
   );
 }
 export default App;
