@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -11,6 +11,9 @@ function SignInForm() {
     password: ""
   });
 
+  const [userNameError, setUserNameError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+
   const handleChange = evt => {
     const value = evt.target.value;
     setState({
@@ -19,8 +22,25 @@ function SignInForm() {
     });
   };
 
+  const validateForm = () => {
+    let formIsValid = true;
+    if (!state.userName) {
+      formIsValid = false;
+      setUserNameError('Please enter your username');
+    }
+    if (!state.password) {
+      formIsValid = false;
+      setPasswordError('Please enter your password');
+    }
+    return formIsValid;
+  }
+
   const handleOnSubmit = evt => {
     evt.preventDefault();
+
+    if (!validateForm()) {
+      return;
+    }
 
     axios.post('api/user/login', {
       username: state.userName,
@@ -36,16 +56,6 @@ function SignInForm() {
         console.log(error);
         toast.error('Login failed');
       });
-
-    // const { email, password } = state;
-    // alert(`You are login with email: ${email} and password: ${password}`);
-
-    // for (const key in state) {
-    //   setState({
-    //     ...state,
-    //     [key]: ""
-    //   });
-    // }
   };
 
   return (
@@ -54,17 +64,9 @@ function SignInForm() {
       <form onSubmit={handleOnSubmit}>
         <h1>Sign in</h1>
         <div className="social-container">
-          {/* <a href="#" className="social">
-            <i className="fab fa-facebook-f" />
-          </a>
-          <a href="#" className="social">
-            <i className="fab fa-google-plus-g" />
-          </a>
-          <a href="#" className="social">
-            <i className="fab fa-linkedin-in" />
-          </a> */}
+
         </div>
-        {/* <span>or use your account</span> */}
+
         <input
           type="text"
           placeholder="Username"
@@ -72,6 +74,12 @@ function SignInForm() {
           value={state.userName}
           onChange={handleChange}
         />
+
+        {userNameError && <span className="errorMsg" style={{
+          color: 'red',
+        }}>{userNameError}</span>}
+
+
         <input
           type="password"
           name="password"
@@ -79,10 +87,12 @@ function SignInForm() {
           value={state.password}
           onChange={handleChange}
         />
+        {passwordError && <span className="errorMsg" style={{ color: 'red' }}>{passwordError}</span>}
+
         <a href="#">Forgot your password?</a>
         <button>Sign In</button>
-      </form>
-    </div>
+      </form >
+    </div >
   );
 }
 
