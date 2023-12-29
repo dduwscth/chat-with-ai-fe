@@ -115,8 +115,8 @@ function SignUpForm() {
           onChange={handleChange}
           placeholder="Confirm Password"
         />
-        {confirmPasswordError && <div className="errorMsg" style={{ color: "red" }}>{confirmPasswordError}</div>}
-        <button>Sign Upa</button>
+        {confirmPasswordError & <div className="errorMsg" style={{ color: "red" }}>{confirmPasswordError}</div>}
+        <button>Sign Up</button>
       </form>
     </div>
   );
