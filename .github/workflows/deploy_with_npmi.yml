@@ -1,7 +1,7 @@
 # This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
 
-name: Deploy Application
+name: Deploy With npm_i
 
 on:
   workflow_dispatch:
@@ -38,6 +38,6 @@ jobs:
           run: |
             echo "$SSH_PRIVATE_KEY" > ./dev_2.pem
             chmod 400 ./dev_2.pem
-            ssh -i ./dev_2.pem ubuntu@ec2-3-1-208-37.ap-southeast-1.compute.amazonaws.com "cd /home && ./deploy_fe.sh"
+            ssh -i ./dev_2.pem ubuntu@ec2-3-1-208-37.ap-southeast-1.compute.amazonaws.com "cd /home && ./deploy_fe_with_npmi.sh"
           env:
             SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
