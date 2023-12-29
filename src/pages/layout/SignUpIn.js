@@ -15,7 +15,6 @@ export default function App() {
     "container " + (type === "signUp" ? "right-panel-active" : "");
   return (
     <div className="App">
-      <h2>Sign in/up Form</h2>
       <div className={containerClass} id="container">
         <SignUpForm />
         <SignInForm />
@@ -31,7 +30,7 @@ export default function App() {
                 id="signIn"
                 onClick={() => handleOnClick("signIn")}
               >
-                Sign In
+                Log In
               </button>
             </div>
             <div className="overlay-panel overlay-right">
