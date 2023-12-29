@@ -26,14 +26,18 @@ jobs:
     - run: npm run build
 
   deploy:
+    needs: build
     runs-on: ubuntu-latest
     steps:
-    - name: Add EC2 Host Key to known_hosts
-    - run: mkdir -p ~/.ssh
-    - run: ssh-keyscan -H ec2-3-1-208-37.ap-southeast-1.compute.amazonaws.com >> ~/.ssh/known_hosts
-    - name: Deploy to EC2
-    - run: echo "$SSH_PRIVATE_KEY" > ./dev_2.pem
-    - run: chmod 400 ./dev_2.pem
-    - run: ssh -i ./dev_2.pem ubuntu@ec2-3-1-208-37.ap-southeast-1.compute.amazonaws.com "cd /home && ./deploy_fe.sh"
-    - env:
-        SSH_PRIVATE_KEY: ${{ vars.SSH_PRIVATE_KEY }}
+        - name: Add EC2 Host Key to known_hosts
+          run: |
+            mkdir -p ~/.ssh
+            ssh-keyscan -H ec2-3-1-208-37.ap-southeast-1.compute.amazonaws.com >> ~/.ssh/known_hosts
+
+        - name: Deploy to EC2
+          run: |
+            echo "$SSH_PRIVATE_KEY" > ./dev_2.pem
+            chmod 400 ./dev_2.pem
+            ssh -i ./dev_2.pem ubuntu@ec2-3-1-208-37.ap-southeast-1.compute.amazonaws.com "cd /home && ./deploy_fe.sh"
+          env:
+            SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
