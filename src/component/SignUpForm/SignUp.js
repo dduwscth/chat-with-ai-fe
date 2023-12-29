@@ -116,7 +116,7 @@ function SignUpForm() {
           placeholder="Confirm Password"
         />
         {confirmPasswordError && <div className="errorMsg" style={{ color: "red" }}>{confirmPasswordError}</div>}
-        <buttonSign Up</button>
+        <button>Sign Up</button>
       </form>
     </div>
   );
