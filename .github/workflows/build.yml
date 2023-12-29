@@ -1,13 +1,17 @@
 # This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
 
-name: Deploy Application
+name: Build Application
 
 on:
-  workflow_dispatch:
+  push:
+    branches: [ "develop" ]
+  pull_request:
+    branches: [ "develop" ]
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
 
     strategy:
@@ -24,18 +28,3 @@ jobs:
         cache: 'npm'
     - run: npm ci
     - run: npm run build
-
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-    - name: 'Add EC2 Host Key to known_hosts'
-        run: |
-        mkdir -p ~/.ssh
-        ssh-keyscan -H ec2-3-1-208-37.ap-southeast-1.compute.amazonaws.com >> ~/.ssh/known_hosts
-    - name: Deploy to EC2
-        run: |
-        echo "$SSH_PRIVATE_KEY" > ./dev_2.pem
-        chmod 400 ./dev_2.pem
-        ssh -i ./dev_2.pem ubuntu@ec2-3-1-208-37.ap-southeast-1.compute.amazonaws.com "cd /home && ./deploy_fe.sh"
-        env:
-        SSH_PRIVATE_KEY: ${{ vars.SSH_PRIVATE_KEY }}
