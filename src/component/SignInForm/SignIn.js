@@ -89,7 +89,7 @@ function SignInForm() {
         />
         {passwordError && <span className="errorMsg" style={{ color: 'red' }}>{passwordError}</span>}
 
-        <button>Login</button>
+        <button>Logina</button>
       </form >
     </div >
   );
