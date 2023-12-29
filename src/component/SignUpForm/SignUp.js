@@ -2,10 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useNavigate } from "react-router-dom";
 
 function SignUpForm() {
-  const navigate = useNavigate();
   const [state, setState] = React.useState({
     userName: "",
     name: "",
