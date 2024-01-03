@@ -16,8 +16,6 @@ function App() {
     const token = sessionStorage.getItem('token');
     if (!token) {
       navigate('/authentication');
-    } else {
-      navigate('/chat');
     }
   }, [navigate]);
   return (
