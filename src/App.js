@@ -6,6 +6,7 @@ import {
   Route,
 } from "react-router-dom";
 import SignUpIn from "./pages/layout/SignUpIn";
+import Setting from "./component/Setting";
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
     <div>
       <Routes>
         <Route path="/authentication" element={<SignUpIn />} />
+        <Route path="/setting" element={<Setting />} />
       </Routes>
     </div>
   );
