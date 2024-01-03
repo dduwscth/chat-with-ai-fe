@@ -62,7 +62,7 @@ function SignInForm() {
     <div className="form-container sign-in-container">
       <ToastContainer />
       <form onSubmit={handleOnSubmit}>
-        <h1>Sign in</h1>
+        <h1>Login</h1>
         <div className="social-container">
 
         </div>
@@ -90,7 +90,7 @@ function SignInForm() {
         {passwordError && <span className="errorMsg" style={{ color: 'red' }}>{passwordError}</span>}
 
         <a href="#">Forgot your password?</a>
-        <button style={{ cursor: "pointer" }}>Sign In</button>
+        <button style={{ cursor: "pointer" }}>Login</button>
       </form >
     </div >
   );

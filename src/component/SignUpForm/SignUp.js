@@ -85,7 +85,6 @@ function SignUpForm() {
       <form onSubmit={handleOnSubmit}>
         <h1>Create Account</h1>
 
-        <span>or use your email for registration</span>
 
         <input
           type="text"
