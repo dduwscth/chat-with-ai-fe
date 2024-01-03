@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import {
   Routes,
@@ -9,10 +10,20 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   axios.defaults.baseURL = 'https://api.ducth.tech/';
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    const token = sessionStorage.getItem('token');
+    if (!token) {
+      navigate('/authentication');
+    } else {
+      navigate('/chat');
+    }
+  }, [navigate]);
   return (
     <div>
       <Routes>
-        <Route path="/login" element={<SignUpIn />} />
+        <Route path="/authentication" element={<SignUpIn />} />
       </Routes>
     </div>
   );

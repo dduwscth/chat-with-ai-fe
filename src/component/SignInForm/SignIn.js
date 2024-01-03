@@ -90,7 +90,7 @@ function SignInForm() {
         {passwordError && <span className="errorMsg" style={{ color: 'red' }}>{passwordError}</span>}
 
         <a href="#">Forgot your password?</a>
-        <button>Sign In</button>
+        <button style={{ cursor: "pointer" }}>Sign In</button>
       </form >
     </div >
   );

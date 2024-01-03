@@ -30,6 +30,7 @@ export default function App() {
                 className="ghost"
                 id="signIn"
                 onClick={() => handleOnClick("signIn")}
+                style={{ cursor: "pointer" }}
               >
                 Sign In
               </button>
@@ -41,6 +42,7 @@ export default function App() {
                 className="ghost "
                 id="signUp"
                 onClick={() => handleOnClick("signUp")}
+                style={{ cursor: "pointer" }}
               >
                 Sign Up
               </button>
