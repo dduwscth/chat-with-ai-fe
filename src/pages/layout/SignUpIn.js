@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../css/styles.css";
 import SignInForm from "../../component/SignInForm/SignIn";
 import SignUpForm from "../../component/SignUpForm/SignUp";
-
+import { Button } from "flowbite-react";
 export default function App() {
   const [type, setType] = useState("signIn");
   const handleOnClick = text => {
