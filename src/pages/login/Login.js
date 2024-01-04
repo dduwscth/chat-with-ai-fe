@@ -69,12 +69,12 @@ function Login() {
                         CHAT WITH AI
                     </div>
                     
-                    <input type="text" name="user-name" className={`p-4 border-2 rounded-full w-full outline-none ${userNameError ? 'border-red-600' : ''}`} placeholder="Username..."
+                    <input type="text" name="userName" className={`p-4 border-2 rounded-full w-full outline-none ${userNameError ? 'border-red-600' : ''}`} placeholder="Username..."
                         value={state.userName} onChange={handleChange}
                     />
                     {userNameError && <div className="text-red-600 italic text-sm">{userNameError}</div>}
 
-                    <input type="password" name="user-password" className={`p-4 border-2 rounded-full w-full outline-none ${passwordError ? 'border-red-600' : ''}`} placeholder="Password..."
+                    <input type="password" name="password" className={`p-4 border-2 rounded-full w-full outline-none ${passwordError ? 'border-red-600' : ''}`} placeholder="Password..."
                         value={state.password} onChange={handleChange}
                     />
                     {passwordError && <div className="text-red-600 italic text-sm">{passwordError}</div>}
