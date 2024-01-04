@@ -49,7 +49,7 @@ function Login() {
         .then(function (response) {
           console.log(response);
           sessionStorage.setItem('token', response.data.token);
-          navigate('/home');
+          navigate('/chat');
   
         })
         .catch(function (error) {
