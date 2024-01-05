@@ -89,7 +89,7 @@ function Signup(){
                         CHAT WITH AI
                     </div>
                    
-                    <input type="text" name="name" className={`p-4 border-2 rounded-full w-full outline-none ${nameError ? 'border-red-600' : ''}`} placeholder="Username..."
+                    <input type="text" name="name" className={`p-4 border-2 rounded-full w-full outline-none ${nameError ? 'border-red-600' : ''}`} placeholder="Name..."
                         value={state.name} onChange={handleChange}
                     />
                     {nameError && <div className="text-red-600 italic text-sm">{nameError}</div>}
@@ -99,12 +99,12 @@ function Signup(){
                     />
                     {userNameError && <div className="text-red-600 italic text-sm">{userNameError}</div>}
 
-                    <input type="password" name="user-password" className={`p-4 border-2 rounded-full w-full outline-none ${passwordError ? 'border-red-600' : ''}`} placeholder="Password..."
+                    <input type="password" name="password" className={`p-4 border-2 rounded-full w-full outline-none ${passwordError ? 'border-red-600' : ''}`} placeholder="Password..."
                         value={state.password} onChange={handleChange}
                     />
                     {passwordError && <div className="text-red-600 italic text-sm">{passwordError}</div>}
                     
-                    <input type="password" name="user-password"className={`p-4 border-2 rounded-full w-full outline-none ${confirmPasswordError ? 'border-red-600' : ''}`} placeholder="Confirm Password..."
+                    <input type="password" name="confirmPassword"className={`p-4 border-2 rounded-full w-full outline-none ${confirmPasswordError ? 'border-red-600' : ''}`} placeholder="Confirm Password..."
                         value={state.confirmPassword} onChange={handleChange}
                     />
                     {confirmPasswordError && <div className="text-red-600 italic text-sm">{confirmPasswordError}</div>}
