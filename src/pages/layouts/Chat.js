@@ -22,7 +22,7 @@ function Chat(){
             <Navbar />
             <div className="h-full pt-[70px] w-full flex gap-2">
                 <div className="w-2/12 border rounded-3xl p-2 flex flex-col gap-2 bg-[#B6BBC4]">
-                    <button className="w-full border rounded-full text-white bg-[#31304D] text-center py-2">
+                    <button className="w-full border rounded-full text-white bg-[#31304D] text-center py-2 hover:bg-[#161A30]">
                         Create a new chat...
                     </button>
                     <div className="border-b-2 border-[#31304D]"></div>
@@ -31,7 +31,7 @@ function Chat(){
                         <span className="w-9/12 text-gray-700 truncate text-sm">
                             Chat history title....
                         </span>
-                        <button className="w-3/12 border rounded-full bg-[#31304D] text-sm py-2">
+                        <button className="w-3/12 border rounded-full bg-[#31304D] text-sm py-2 hover:bg-[#161A30]">
                             Delete
                         </button>
                     </div>
@@ -77,7 +77,7 @@ function Chat(){
                     >
                         Chat box
                     </textarea>
-                    <button className="bg-[#31304D] px-6 py-2 border rounded-full text-center text-white">
+                    <button className="bg-[#31304D] px-6 py-2 border rounded-full text-center text-white hover:bg-[#161A30]">
                         Send
                     </button>
                     </div>

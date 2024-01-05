@@ -13,28 +13,28 @@ function Navbar() {
         {isSettingPage ? (
           <button
             onClick={() => window.history.back()}
-            className="bg-[#31304D] px-6 py-2 border rounded-full text-center text-white w-[150px]"
+            className="bg-[#31304D] px-6 py-2 border rounded-full text-center text-white w-[150px] hover:bg-[#161A30]"
           >
             Back
           </button>
         ) : (
           <Link
             to="/setting"
-            className="bg-[#31304D] px-6 py-2 border rounded-full text-center text-white w-[150px]"
+            className="bg-[#31304D] px-6 py-2 border rounded-full text-center text-white w-[150px] hover:bg-[#161A30]"
           >
             Setting
           </Link>
         )}
 
-        <span className="text-gray-800 uppercase text-4xl font-semibold">
+        <Link to="/home" className="text-gray-800 uppercase text-4xl font-semibold transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105">
           dhs-chat
-        </span>
+        </Link>
 
         <div className="flex items-center">
           <span className="text-gray-800 uppercase text-xl font-semibold me-2">
             User Name
           </span>
-          <button className="bg-[#31304D] px-6 py-2 border rounded-full text-center text-white">
+          <button className="bg-[#31304D] px-6 py-2 border rounded-full text-center text-white hover:bg-[#161A30]">
             Logout
           </button>
         </div>

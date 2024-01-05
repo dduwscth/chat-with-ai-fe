@@ -23,7 +23,7 @@ function Setting(){
                                 placeholder="google api key"
                                 disabled
                             />
-                            <button className="bg-[#31304D] w-[100px] px-6 py-2 border rounded-full text-center text-white">
+                            <button className="bg-[#31304D] w-[100px] px-6 py-2 border rounded-full text-center text-white hover:bg-[#161A30]">
                                 Edit
                             </button>
                         </div>
@@ -39,7 +39,7 @@ function Setting(){
                                 placeholder="chatgpt api key"
                                 disabled
                             />
-                            <button className="bg-[#31304D] w-[100px] px-6 py-2 border rounded-full text-center text-white">
+                            <button className="bg-[#31304D] w-[100px] px-6 py-2 border rounded-full text-center text-white hover:bg-[#161A30]">
                                 Edit
                             </button>
                         </div>
@@ -51,16 +51,16 @@ function Setting(){
                             <input
                                 className="border rounded-full border-transparent px-4 py-2 w-full disabled:opacity-75 disabled:cursor-not-allowed"
                                 type="text"
-                                value={'User Name'}
+                                
                                 placeholder="Your name"
                             />
-                            <button className="bg-[#31304D] w-[100px] px-6 py-2 border rounded-full text-center text-white invisible">
+                            <button className="bg-[#31304D] w-[100px] px-6 py-2 border rounded-full text-center text-white invisible hover:bg-[#161A30]">
                                 Edit
                             </button>
                         </div>
                         {/* //////////////////////////////////// */}
                         <div className="flex justify-center mt-4">
-                            <button className="bg-[#31304D] px-6 py-3 border rounded-full text-center text-white justify-self-center">
+                            <button className="bg-[#31304D] px-6 py-3 border rounded-full text-center text-white justify-self-center hover:bg-[#161A30]">
                                 update information 
                             </button>
                         </div>
@@ -101,7 +101,7 @@ function Setting(){
                         />
                         {/* //////////////////////////////////// */}
                         <div className="flex justify-center mt-4">
-                            <button className="bg-[#31304D] px-6 py-3 border rounded-full text-center text-white justify-self-center">
+                            <button className="bg-[#31304D] px-6 py-3 border rounded-full text-center text-white justify-self-center hover:bg-[#161A30]">
                                 update password
                             </button>
                         </div>
