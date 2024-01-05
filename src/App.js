@@ -2,6 +2,9 @@ import axios from "axios";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./pages/login/Login.js";
 import Signup from "./pages/login/Signup.js";
+import Chat from "./pages/layouts/Chat.js";
+import Setting from "./pages/layouts/Setting.js";
+import Home from "./pages/layouts/Home.js";
 
 function App() {
   axios.defaults.baseURL = 'https://api.ducth.tech/';
@@ -12,6 +15,9 @@ function App() {
           <Route path="/" element={<Login />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/chat" element={<Chat />} />
+          <Route path="/setting" element={<Setting />} />
+          <Route path="/home" element={<Home />} />
         </Routes>
       </div>
     </Router>
