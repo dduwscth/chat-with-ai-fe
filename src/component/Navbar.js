@@ -8,7 +8,7 @@ function Navbar() {
   const isSettingPage = location.pathname === '/setting';
 
   return (
-    <div className="fixed w-full z-20 top-0 start-0 end-0 border rounded-full border-gray-200 bg-white p-2">
+    <div className="fixed w-full z-20 top-2 start-0 end-0 border rounded-full border-gray-200 bg-white p-2">
       <div className="flex items-center justify-between">
         {isSettingPage ? (
           <button
