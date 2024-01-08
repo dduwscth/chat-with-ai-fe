@@ -1,8 +1,10 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Home() {
-    return(
+
+
+    return (
         <div className="bg-[#F0ECE5] w-full h-full">
             <div className="max-w-[1100px] min-h-screen mx-auto">
                 <div className="text-5xl font-semibold uppercase text-center text-gray-800 pt-[80px]">
@@ -14,12 +16,12 @@ function Home() {
                             Text Generator
                         </span>
                         <span className="w-full text-center text-sm font-semibold text-gray-800 mt-6">
-                        This is a combination of two large AI systems including OpenAI ChatGPT and Google Gemini. Bringing better, more diverse returns
+                            This is a combination of two large AI systems including OpenAI ChatGPT and Google Gemini. Bringing better, more diverse returns
                         </span>
                         <Link
                             to="/chat"
                             className="w-[300px] bg-[#31304D] px-6 py-2 rounded-full text-center text-white mt-[50px] border-transparent transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105">
-                                Generator it
+                            Generator it
                         </Link>
                     </div>
                     {/* ////////////////////////////// */}
@@ -28,12 +30,12 @@ function Home() {
                             Text Translator
                         </span>
                         <span className="w-full text-center text-sm font-semibold text-gray-800 mt-6">
-                        Using AI to translate text, providing higher accuracy and more suggestions for many different purposes.
+                            Using AI to translate text, providing higher accuracy and more suggestions for many different purposes.
                         </span>
                         <Link
                             to="/home"
                             className="w-[300px] bg-[#31304D] px-6 py-2 rounded-full text-center text-white mt-[50px] border-transparent transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105">
-                                Imcoming
+                            Imcoming
                         </Link>
                     </div>
                     {/* ////////////////////////////// */}
@@ -42,12 +44,12 @@ function Home() {
                             Image Generator
                         </span>
                         <span className="w-full text-center text-sm font-semibold text-gray-800 mt-6">
-                        Using Dall - e - 2 technology to create unique, artistic photos like never before,...
+                            Using Dall - e - 2 technology to create unique, artistic photos like never before,...
                         </span>
                         <Link
                             to="/home"
                             className="w-[300px] bg-[#31304D] px-6 py-2 rounded-full text-center text-white mt-[50px] border-transparent transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105">
-                                Imcoming
+                            Imcoming
                         </Link>
                     </div>
                     {/* ////////////////////////////// */}
@@ -56,12 +58,12 @@ function Home() {
                             Text Generator
                         </span>
                         <span className="w-full text-center text-sm font-semibold text-gray-800 mt-6">
-                        Convert voice to text and vice versa with Text - Voice Switcher. Diverse languages and support for many file formats.
+                            Convert voice to text and vice versa with Text - Voice Switcher. Diverse languages and support for many file formats.
                         </span>
                         <Link
                             to="/home"
                             className="w-[300px] bg-[#31304D] px-6 py-2 rounded-full text-center text-white mt-[50px] border-transparent transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105">
-                                Incoming
+                            Incoming
                         </Link>
                     </div>
                 </div>
