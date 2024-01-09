@@ -17,6 +17,14 @@ function Setting() {
         chatgpt_api_key: "",
     });
 
+    const [initialState, setInitialState] = React.useState({
+        google_api_key: "",
+        chatgpt_api_key: "",
+    });
+
+    let [editGoogleApiKey, setEditGoogleApiKey] = React.useState(true);
+    let [editChatgptApiKey, setEditChatgptApiKey] = React.useState(true);
+
     const handleChange = evt => {
         const value = evt.target.value;
         setState({
@@ -32,7 +40,6 @@ function Setting() {
                 'Authorization': `Bearer ${token}`
             }
         }).then(function (response) {
-            console.log(response);
             setState({
                 ...state,
                 name: response.data.name,
@@ -41,7 +48,10 @@ function Setting() {
                 chatgpt_api_key: response.data.chatgpt_api_key,
             });
 
-            console.log(state);
+            setInitialState({
+                google_api_key: response.data.google_api_key,
+                chatgpt_api_key: response.data.chatgpt_api_key,
+            });
         }
         ).catch(function (error) {
             console.log(error);
@@ -60,10 +70,13 @@ function Setting() {
             return;
         }
 
+        const google_api_key = state.google_api_key === initialState.google_api_key ? "" : state.google_api_key;
+        const chatgpt_api_key = state.chatgpt_api_key === initialState.chatgpt_api_key ? "" : state.chatgpt_api_key;
+
         axios.put('/api/user/information', {
             name: state.name,
-            google_api_key: state.google_api_key,
-            chatgpt_api_key: state.chatgpt_api_key,
+            google_api_key: google_api_key,
+            chatgpt_api_key: chatgpt_api_key,
         }, {
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -73,22 +86,90 @@ function Setting() {
         }).catch(function (error) {
             toast.error(error.response.data.detail);
         });
-
     };
 
+    const handleUpdatePassword = evt => {
+
+        evt.preventDefault();
+
+        if (!handlePasswordValidate()) {
+            return;
+        }
+
+        axios.put('/api/user/password', {
+            current_password: state.currentPassword,
+            password: state.newPassword,
+            confirm_password: state.confirmPassword,
+        }, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        }).then(function (response) {
+            toast.success(response.data.result);
+            window.location.reload();
+        }).catch(function (error) {
+            toast.error(error.response.data.detail);
+        });
+    };
+
+    const handleGoogleApiKey = () => {
+        if (editGoogleApiKey) {
+            setState({
+                ...state,
+                google_api_key: "",
+            });
+        } else {
+            setState({
+                ...state,
+                google_api_key: initialState.google_api_key,
+            });
+        }
+        setEditGoogleApiKey(!editGoogleApiKey);
+        setEditGoogleApiKey(!editGoogleApiKey);
+    };
+
+    const handleChatgptApiKey = () => {
+        if (editChatgptApiKey) {
+            setState({
+                ...state,
+                chatgpt_api_key: "",
+            });
+        } else {
+            setState({
+                ...state,
+                chatgpt_api_key: initialState.chatgpt_api_key,
+            });
+        }
+        setEditChatgptApiKey(!editChatgptApiKey);
+    };
+
+    //   handle validate user information
     const handleUserInformationValidate = () => {
         let formIsValid = true;
         if (!state.name) {
             formIsValid = false;
             toast.error('Please enter your name');
         }
-        if (!state.google_api_key) {
+        return formIsValid;
+    }
+
+    const handlePasswordValidate = () => {
+        let formIsValid = true;
+        if (!state.currentPassword) {
             formIsValid = false;
-            toast.error('Please enter your google api key');
+            toast.error('Please enter your current password');
         }
-        if (!state.chatgpt_api_key) {
+        if (!state.newPassword) {
             formIsValid = false;
-            toast.error('Please enter your chatgpt api key');
+            toast.error('Please enter your new password');
+        }
+        if (!state.confirmPassword) {
+            formIsValid = false;
+            toast.error('Please enter your confirm password');
+        }
+        if (state.newPassword !== state.confirmPassword) {
+            formIsValid = false;
+            toast.error('Confirm password does not match');
         }
         return formIsValid;
     }
@@ -108,13 +189,14 @@ function Setting() {
                             <input
                                 className="border rounded-full border-transparent px-4 py-2 w-full disabled:opacity-75 disabled:cursor-not-allowed"
                                 type="text"
+                                name="google_api_key"
                                 value={state.google_api_key}
                                 placeholder="google api key"
-                                disabled
+                                disabled={editGoogleApiKey}
                                 onChange={handleChange}
                             />
-                            <button className="bg-[#31304D] w-[100px] px-6 py-2 border rounded-full text-center text-white hover:bg-[#161A30]">
-                                Edit
+                            <button onClick={handleGoogleApiKey} className="bg-[#31304D] w-[100px] px-6 py-2 border rounded-full text-center text-white hover:bg-[#161A30]">
+                                {editGoogleApiKey ? "Edit" : "Cancel"}
                             </button>
                         </div>
                         {/* //////////////////////////////////// */}
@@ -125,13 +207,14 @@ function Setting() {
                             <input
                                 className="border rounded-full border-transparent px-4 py-2 w-full disabled:opacity-75 disabled:cursor-not-allowed"
                                 type="text"
+                                name="chatgpt_api_key"
                                 value={state.chatgpt_api_key}
                                 placeholder="chatgpt api key"
-                                disabled
+                                disabled={editChatgptApiKey}
                                 onChange={handleChange}
                             />
-                            <button className="bg-[#31304D] w-[100px] px-6 py-2 border rounded-full text-center text-white hover:bg-[#161A30]">
-                                Edit
+                            <button onClick={handleChatgptApiKey} className="bg-[#31304D] w-[100px] px-6 py-2 border rounded-full text-center text-white hover:bg-[#161A30]">
+                                {editChatgptApiKey ? "Edit" : "Cancel"}
                             </button>
                         </div>
                         {/* //////////////////////////////////// */}
@@ -148,7 +231,7 @@ function Setting() {
                                 onChange={handleChange}
                             />
                             <button className="bg-[#31304D] w-[100px] px-6 py-2 border rounded-full text-center text-white invisible hover:bg-[#161A30]">
-                                Edit
+
                             </button>
                         </div>
                         {/* //////////////////////////////////// */}
@@ -160,7 +243,8 @@ function Setting() {
                     </div>
 
                     <div className="w-4/12 flex flex-col gap-3">
-                        <label for="current-pwd-ke" className="text-gray-700 text-sm font-semibold uppercase">
+
+                        <label htmlFor="current-pwd-ke" className="text-gray-700 text-sm font-semibold uppercase">
                             current password
                         </label>
                         <input
@@ -173,7 +257,7 @@ function Setting() {
                             onChange={handleChange}
                         />
                         {/* //////////////////////////////////// */}
-                        <label for="new-pwd-ke" className="text-gray-700 text-sm font-semibold uppercase">
+                        <label htmlFor="new-pwd-ke" className="text-gray-700 text-sm font-semibold uppercase">
                             new password
                         </label>
                         <input
@@ -186,7 +270,7 @@ function Setting() {
                             onChange={handleChange}
                         />
                         {/* //////////////////////////////////// */}
-                        <label for="confirm-pwd-ke" className="text-gray-700 text-sm font-semibold uppercase">
+                        <label htmlFor="confirm-pwd-ke" className="text-gray-700 text-sm font-semibold uppercase">
                             confirm password
                         </label>
                         <input
@@ -198,10 +282,11 @@ function Setting() {
                             placeholder="confirm password"
                             onChange={handleChange}
                         />
+
                         {/* //////////////////////////////////// */}
                         <div className="flex justify-center mt-4">
-                            <button className="bg-[#31304D] px-6 py-3 border rounded-full text-center text-white justify-self-center hover:bg-[#161A30]">
-                                update password
+                            <button onClick={handleUpdatePassword} className="bg-[#31304D] px-6 py-3 border rounded-full text-center text-white justify-self-center hover:bg-[#161A30]">
+                                Update password
                             </button>
                         </div>
                     </div>

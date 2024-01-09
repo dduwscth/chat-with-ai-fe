@@ -53,8 +53,7 @@ function Login() {
 
       })
       .catch(function (error) {
-        console.log(error);
-        toast.error('Login failed');
+        toast.error(error.response.data.detail);
       });
   };
   return (
