@@ -28,7 +28,7 @@ function App() {
     <Router>
       <div>
         <Routes>
-          <Route path="/" element={<PublicRoute><Login /></PublicRoute>} />
+          <Route path="/" element={<PublicRoute><Home /></PublicRoute>} />
           <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
           <Route path="/signup" element={<PublicRoute><Signup /></PublicRoute>} />
           <Route path="/chat" element={<ProtectedRoute><Chat /></ProtectedRoute>} />
