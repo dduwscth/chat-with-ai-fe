@@ -1,8 +1,8 @@
-import React ,{ useState, useEffect } from "react";
-import { Link} from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import Navbar from "../../component/Navbar.js";
 
-function Chat(){
+function Chat() {
+
     const [isOn, setIsOn] = useState(false);
 
     useEffect(() => {
@@ -11,13 +11,15 @@ function Chat(){
 
     const [rows, setRows] = useState(1);
     const minRows = 1;
-    const maxRows = 4; // Đặt giá trị tối đa mong muốn
+    const maxRows = 4;
 
     const handleChange = (event) => {
         const textareaRows = event.target.value.split('\n').length;
         setRows(Math.min(maxRows, Math.max(minRows, textareaRows)));
     };
-    return(
+
+
+    return (
         <div className="bg-[#161A30] max-h-screen h-screen p-2">
             <Navbar />
             <div className="h-full pt-[70px] w-full flex gap-2">
@@ -44,22 +46,19 @@ function Chat(){
                                     gemini pro
                                 </span>
                                 <button
-                                    className={`relative w-16 h-8 rounded-full border border-[#161A30] overflow-hidden ${
-                                        isOn ? 'bg-[#161A30]' : 'bg-gray-300'
-                                    }`}
+                                    className={`relative w-16 h-8 rounded-full border border-[#161A30] overflow-hidden ${isOn ? 'bg-[#161A30]' : 'bg-gray-300'
+                                        }`}
                                     onClick={() => setIsOn(!isOn)}
                                 >
-                                <div
-                                    className={`absolute top-1/2 transform -translate-y-1/2 ${
-                                    isOn ? 'left-[1px]' : 'right-[1px]'
-                                    } w-7 h-7 p-2 rounded-full transition-all duration-300 ${
-                                    isOn ? 'bg-white' : 'bg-gray-400'
-                                    }`}
-                                >
-                                    <span className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-gray-800 text-sm font-bold">
-                                    {isOn ? 'ON' : 'OFF'}
-                                    </span>
-                                </div>
+                                    <div
+                                        className={`absolute top-1/2 transform -translate-y-1/2 ${isOn ? 'left-[1px]' : 'right-[1px]'
+                                            } w-7 h-7 p-2 rounded-full transition-all duration-300 ${isOn ? 'bg-white' : 'bg-gray-400'
+                                            }`}
+                                    >
+                                        <span className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-gray-800 text-sm font-bold">
+                                            {isOn ? 'ON' : 'OFF'}
+                                        </span>
+                                    </div>
                                 </button>
 
                             </div>
@@ -70,16 +69,16 @@ function Chat(){
                         </div>
                     </div>
                     <div className="flex items-center justify-between border rounded-2xl bg-[#B6BBC4] w-full p-1">
-                    <textarea
-                        className="bg-[#B6BBC4] w-full border-0 outline-none rouded-2xl"
-                        rows={rows}
-                        onChange={handleChange}
-                    >
-                        Chat box
-                    </textarea>
-                    <button className="bg-[#31304D] px-6 py-2 border rounded-full text-center text-white hover:bg-[#161A30]">
-                        Send
-                    </button>
+                        <textarea
+                            className="bg-[#B6BBC4] w-full border-0 outline-none rouded-2xl"
+                            rows={rows}
+                            onChange={handleChange}
+                        >
+                            Chat box
+                        </textarea>
+                        <button className="bg-[#31304D] px-6 py-2 border rounded-full text-center text-white hover:bg-[#161A30]">
+                            Send
+                        </button>
                     </div>
                 </div>
             </div>
