@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Navbar from "../../component/Navbar.js";
 import { toast, ToastContainer } from "react-toastify";
@@ -32,32 +32,31 @@ function Setting() {
             [evt.target.name]: value
         });
     };
-
+    const [loading, setLoading] = useState(null);
     // call api get information user
     useEffect(() => {
         axios.get('/api/user/information/detail', {
-            headers: {
+              headers: {
                 'Authorization': `Bearer ${token}`
-            }
-        }).then(function (response) {
+              }
+            }).then(function (response) {
             setState({
-                ...state,
-                name: response.data.name,
-                useName: response.data.username,
-                google_api_key: response.data.google_api_key,
-                chatgpt_api_key: response.data.chatgpt_api_key,
+              ...state,
+              name: response.data.name,
+              useName: response.data.username,
+              google_api_key: response.data.google_api_key,
+              chatgpt_api_key: response.data.chatgpt_api_key,
             });
-
+    
             setInitialState({
-                google_api_key: response.data.google_api_key,
-                chatgpt_api_key: response.data.chatgpt_api_key,
+              google_api_key: response.data.google_api_key,
+              chatgpt_api_key: response.data.chatgpt_api_key,
             });
         }
         ).catch(function (error) {
             console.log(error);
-        }
+            }
         );
-
     }, []);
 
     // call api update information user
@@ -72,7 +71,7 @@ function Setting() {
 
         const google_api_key = state.google_api_key === initialState.google_api_key ? "" : state.google_api_key;
         const chatgpt_api_key = state.chatgpt_api_key === initialState.chatgpt_api_key ? "" : state.chatgpt_api_key;
-
+        setLoading(true);
         axios.put('/api/user/information', {
             name: state.name,
             google_api_key: google_api_key,
@@ -83,8 +82,10 @@ function Setting() {
             }
         }).then(function (response) {
             toast.success(response.data.result);
+            setLoading(false);
         }).catch(function (error) {
             toast.error(error.response.data.detail);
+            setLoading(false);
         });
     };
 
@@ -95,7 +96,7 @@ function Setting() {
         if (!handlePasswordValidate()) {
             return;
         }
-
+        setLoading(true);
         axios.put('/api/user/password', {
             current_password: state.currentPassword,
             password: state.newPassword,
@@ -106,9 +107,11 @@ function Setting() {
             }
         }).then(function (response) {
             toast.success(response.data.result);
+            setLoading(false);
             window.location.reload();
         }).catch(function (error) {
             toast.error(error.response.data.detail);
+            setLoading(false);
         });
     };
 
@@ -175,10 +178,18 @@ function Setting() {
     }
 
     return (
+        
         <div className="bg-[#161A30] max-h-screen h-screen p-2">
             <Navbar />
             <ToastContainer />
-            <div className="h-full pt-[70px] w-full">
+            {loading &&
+             <div className="pt-[70px] h-full">
+                <div className="flex items-center justify-center h-full w-full bg-[#D9D9D9] border rounded-3xl">
+                    <span className="loading loading-ring loading-lg  w-[100px] h-[100px] bg-[#161A30]"></span>
+                </div>
+            </div>
+            }
+            {!loading && (<div className="h-full pt-[70px] w-full">
                 <div className="border rounded-3xl bg-[#D9D9D9] px-[250px] py-[100px] h-full flex gap-4 justify-between">
                     <div className="w-6/12 flex flex-col gap-3">
                         {/* //////////////////////////////////// */}
@@ -293,6 +304,7 @@ function Setting() {
                 </div>
 
             </div>
+            )}
         </div>
     );
 }
