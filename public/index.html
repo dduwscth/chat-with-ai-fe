@@ -11,9 +11,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.5.0/dist/full.min.css" rel="stylesheet" type="text/css" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.5.0/dist/full.min.css" rel="stylesheet" type="text/css" />
   <title>Chat With AI</title>
   <style>
     body {
@@ -21,6 +21,20 @@
     }
     ::placeholder {
       font-family: "JetBrains Mono";
+    }
+    body {
+      overflow: auto; /* Bật thanh cuộn khi cần thiết */
+    }
+    ::-webkit-scrollbar {
+      width: 4px; /* Độ rộng của thanh cuộn */
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: #888; /* Màu của thanh trượt */
+    }
+
+    ::-webkit-scrollbar-track {
+      background-color: #f1f1f1; /* Màu của phần đường track */
     }
   </style>
 </head>
