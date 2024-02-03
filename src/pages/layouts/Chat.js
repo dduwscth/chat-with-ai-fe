@@ -13,6 +13,13 @@ function Chat() {
         el.style.height = `${el.scrollHeight + offsetTop}px`;
     }
 
+    const [user, setUser] = useState({
+        name: "",
+        insert_at: "",
+        has_google_api_key: false,
+        has_chat_gpt_key: false,
+    });
+
     const token = sessionStorage.getItem('token');
     const [chatHistory, setChatHistory] = useState(
         [
@@ -95,6 +102,26 @@ function Chat() {
     }, [offsetTop]);
 
     // Api call
+
+    useEffect(() => {
+        axios.get('/api/user/information', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        }).then(response => {
+            setUser(prevState => ({
+                ...prevState,
+                name: response.data.name,
+                insert_at: response.data.insert_at,
+                has_google_api_key: response.data.has_google_api_key,
+                has_chat_gpt_key: response.data.has_chatgpt_api_key,
+            }));
+        }
+        ).catch(error => {
+            console.log(error);
+        })
+
+    }, [token]);
 
     const handleStartChat = () => {
         console.log('start');
@@ -307,13 +334,17 @@ function Chat() {
         setQuestion('');
         handleEmptyChat();
         setDataLoaded(false);
+        console.log('new chat');
+        console.log(user.has_chat_gpt_key);
+        console.log(user.has_google_api_key);
+
     }
 
 
 
     return (
         <div className="bg-[#161A30] max-h-screen h-screen p-2">
-            <Navbar />
+            <Navbar userName={user.name} />
             <div className="h-full max-h-screen pt-[70px] w-full flex gap-2">
                 <div className="w-2/12 border rounded-3xl p-2 flex flex-col gap-2 bg-[#B6BBC4]">
                     <button onClick={handleNewChat} className="w-full border rounded-full text-white bg-[#31304D] text-center py-2 hover:bg-[#161A30]">
@@ -354,7 +385,7 @@ function Chat() {
                                     gemini pro
                                 </span>
                                 <label className="relative inline-flex items-center cursor-pointer">
-                                    <input type="checkbox" value="" className="sr-only peer" />
+                                    <input type="checkbox" checked={user.has_google_api_key} className="sr-only peer" />
                                     <div className="w-11 h-6 bg-gray-500 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-gray-200 after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-[#161A30]"></div>
                                 </label>
                             </div>
@@ -396,7 +427,7 @@ function Chat() {
                                     gemini pro
                                 </span>
                                 <label className="relative inline-flex items-center cursor-pointer">
-                                    <input type="checkbox" value="" className="sr-only peer" />
+                                    <input type="checkbox" checked={user.has_chat_gpt_key} className="sr-only peer" />
                                     <div className="w-11 h-6 bg-gray-500 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-gray-200 after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-[#161A30]"></div>
                                 </label>
                             </div>
