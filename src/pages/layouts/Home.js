@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 function Home() {
 
-
     return (
         <div className="bg-[#F0ECE5] w-full h-full">
             <div className="max-w-[1100px] min-h-screen mx-auto">

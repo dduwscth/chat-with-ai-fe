@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 function Navbar() {
@@ -7,13 +8,46 @@ function Navbar() {
 
   const location = useLocation();
 
+  const [user, setUser] = useState({
+    name: "",
+    insert_at: "",
+    has_google_api_key: false,
+    has_chat_gpt_key: false,
+  });
+
+  const token = sessionStorage.getItem("token");
+
   // Kiểm tra xem có đang ở trang 'setting' hay không
   const isSettingPage = location.pathname === '/setting';
+
+
 
   const handleLogout = () => {
     sessionStorage.removeItem("token");
     navigate("/login");
   }
+
+  useEffect(() => {
+    axios.get('/api/user/information', {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    }).then(response => {
+      console.log(response.data);
+      setUser(
+        {
+          name: response.data.name,
+          insert_at: response.data.insert_at,
+          has_google_api_key: response.data.has_google_api_key,
+          has_chat_gpt_key: response.data.has_chat_gpt_key,
+        }
+      );
+    }
+    ).catch(error => {
+      console.log(error);
+    })
+
+  }, [token]);
 
   return (
     <div className="fixed w-full z-20 top-2 start-0 end-0 border rounded-full border-gray-200 bg-white p-2">
@@ -40,7 +74,7 @@ function Navbar() {
 
         <div className="flex items-center">
           <span className="text-gray-800 uppercase text-xl font-semibold me-2">
-            User Name
+            {user.name}
           </span>
           <button onClick={handleLogout} className="bg-[#31304D] px-6 py-2 border rounded-full text-center text-white hover:bg-[#161A30]">
             Logout

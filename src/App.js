@@ -6,19 +6,22 @@ import Chat from "./pages/layouts/Chat.js";
 import Setting from "./pages/layouts/Setting.js";
 import Home from "./pages/layouts/Home.js";
 
-function ProtectedRoute({ children }) {
-  const token = sessionStorage.getItem('token');
 
-  console.log(token);
+
+function ProtectedRoute({ children }) {
+
+  const token = sessionStorage.getItem('token');
 
   return token ? children : <Login />;
 }
 
 function PublicRoute({ children }) {
+
   const token = sessionStorage.getItem('token');
 
   return !token ? children : <Home />;
 }
+
 
 function App() {
 

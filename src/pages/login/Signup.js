@@ -46,6 +46,16 @@ function Signup() {
       formIsValid = false;
       setConfirmPasswordError('Please enter your confirm password');
     }
+    if (state.password !== state.confirmPassword) {
+      formIsValid = false;
+      setConfirmPasswordError('Password and confirm password not match');
+    }
+
+    if (state.password.length < 6) {
+      formIsValid = false;
+      setPasswordError('Password must be at least 6 characters');
+    }
+
     return formIsValid;
   }
 
