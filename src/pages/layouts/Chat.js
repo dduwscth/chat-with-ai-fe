@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router";
 import axios from "axios";
 import Navbar from "../../component/Navbar.js";
-
+import { ToastContainer, toast } from 'react-toastify';
 function Chat() {
-
+    const navigate = useNavigate();
     const id = "hs-autoheight-textarea"; // Thay đổi ID theo ý bạn
     const offsetTop = 3; // Thay đổi offsetTop theo ý bạn
     const textareaRef = useRef(null);
@@ -116,6 +117,10 @@ function Chat() {
                 has_google_api_key: response.data.has_google_api_key,
                 has_chat_gpt_key: response.data.has_chatgpt_api_key,
             }));
+            if (!response.data.has_google_api_key && !response.data.has_chatgpt_api_key) {
+                navigate('/setting');
+            }
+
         }
         ).catch(error => {
             console.log(error);
@@ -124,13 +129,13 @@ function Chat() {
     }, [token]);
 
     const handleStartChat = () => {
-        console.log('start');
+        handleModelValidation();
         axios.post('/api/chat/start',
             {
                 conversation_id: "",
                 question: question,
-                is_gemini: true,
-                is_chatgpt: true
+                is_gemini: user.has_google_api_key,
+                is_chatgpt: user.has_chat_gpt_key
             },
             {
                 headers: {
@@ -146,14 +151,15 @@ function Chat() {
     }
 
     const handleContinueChat = () => {
+        handleModelValidation();
         if (conversationId) {
             console.log('continue');
             axios.post('/api/chat/continue',
                 {
                     conversation_id: conversationId,
                     question: question,
-                    is_gemini: true,
-                    is_chatgpt: true
+                    is_gemini: user.has_google_api_key,
+                    is_chatgpt: user.has_chat_gpt_key
                 },
                 {
                     headers: {
@@ -334,16 +340,25 @@ function Chat() {
         setQuestion('');
         handleEmptyChat();
         setDataLoaded(false);
-        console.log('new chat');
-        console.log(user.has_chat_gpt_key);
-        console.log(user.has_google_api_key);
-
     }
 
+    const handleToggleChat = (e, key) => {
+        setUser(prevState => ({
+            ...prevState,
+            [key]: !prevState[key]
+        }));
+    };
 
+    const handleModelValidation = () => {
+        if (user.has_google_api_key !== true && user.has_chat_gpt_key !== true) {
+            toast.error('Please enable at least one model');
+            return;
+        }
+    }
 
     return (
         <div className="bg-[#161A30] max-h-screen h-screen p-2">
+            <ToastContainer />
             <Navbar userName={user.name} />
             <div className="h-full max-h-screen pt-[70px] w-full flex gap-2">
                 <div className="w-2/12 border rounded-3xl p-2 flex flex-col gap-2 bg-[#B6BBC4]">
@@ -355,11 +370,11 @@ function Chat() {
 
                         <div className="overflow-y-scroll h-full max-h-[714px]">
                             {chatHistory.length > 0 ? chatHistory.map((item, index) => (
-                                <div onClick={handleHistoryClick(item.conversation_id)} className="w-full border rounded-full text-white bg-white p-1 flex justify-between items-center mb-1 h-[46px]">
+                                <div className="w-full border rounded-full text-white bg-white p-1 flex justify-between items-center mb-1 h-[46px]" onClick={handleHistoryClick(item.conversation_id)}>
                                     <span className="w-9/12 text-gray-700 truncate text-sm">
                                         {item.title}
                                     </span>
-                                    <button className="hidden w-3/12 border rounded-full bg-[#31304D] text-sm py-2 hover:bg-[#161A30]">
+                                    <button className="w-3/12 border rounded-full bg-[#31304D] text-sm py-2 hover:bg-[#161A30]" onClick={() => handleDeleteChat(item.conversation_id)} >
                                         Delete
                                     </button>
                                 </div>
@@ -385,7 +400,7 @@ function Chat() {
                                     gemini pro
                                 </span>
                                 <label className="relative inline-flex items-center cursor-pointer">
-                                    <input type="checkbox" checked={user.has_google_api_key} className="sr-only peer" />
+                                    <input type="checkbox" value={user.has_google_api_key} checked={user.has_google_api_key} onChange={(e) => handleToggleChat(e, 'has_google_api_key')} className="sr-only peer" />
                                     <div className="w-11 h-6 bg-gray-500 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-gray-200 after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-[#161A30]"></div>
                                 </label>
                             </div>
@@ -424,10 +439,10 @@ function Chat() {
                         <div className="w-6/12 border rounded-3xl p-2 flex flex-col gap-2 bg-[#B6BBC4]">
                             <div className="w-full border-2 border-[#161A30] rounded-full flex items-center justify-between uppercase bg-white p-1">
                                 <span className="text-gray-700 text-sm font-semibold">
-                                    gemini pro
+                                    chatGpt pro
                                 </span>
                                 <label className="relative inline-flex items-center cursor-pointer">
-                                    <input type="checkbox" checked={user.has_chat_gpt_key} className="sr-only peer" />
+                                    <input type="checkbox" checked={user.has_chat_gpt_key} onChange={(e) => handleToggleChat(e, 'has_chat_gpt_key')} className="sr-only peer" />
                                     <div className="w-11 h-6 bg-gray-500 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-gray-200 after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-[#161A30]"></div>
                                 </label>
                             </div>
